@@ -1,3 +1,4 @@
+import profilePic from '../assets/me.jpg'
 import { useEffect, useState } from "react";
 
 const words = ["Robinson", "a Developer", "a Student", "a Creator"];
@@ -232,7 +233,7 @@ export default function Home() {
               }}
             ></div>
             <img
-              src="./me.jpg"
+              src={profilePic}
               alt="Robinson"
               style={{
                 width: "260px",

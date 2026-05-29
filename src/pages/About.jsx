@@ -1,3 +1,4 @@
+import profilePic from '../assets/me.jpg'
 import { useEffect, useState } from "react";
 
 const skills = ["React", "JavaScript", "C#", "HTML", "Git", "GitHub"];
@@ -39,7 +40,7 @@ export default function About() {
             }}
           ></div>
           <img
-            src="./me.jpg"
+            src={profilePic}
             alt="Robinson"
             style={{
               width: "100px",
