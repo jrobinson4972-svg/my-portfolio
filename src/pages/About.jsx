@@ -1,11 +1,15 @@
-import profilePic from '../assets/me.jpg'
 import { useEffect, useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import profilePic from "../assets/me.jpg";
 
-const skills = ["React", "JavaScript", "C#", "HTML", "Git", "GitHub"];
-const hotSkills = ["React", "JavaScript", "C#"];
+const skills = ["React", "JavaScript", "Vite", "HTML", "CSS", "Git", "GitHub"];
+const hotSkills = ["React", "JavaScript", "Vite"];
 
 export default function About() {
   const [visible, setVisible] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 100);
@@ -17,6 +21,36 @@ export default function About() {
     transform: visible ? "translateY(0)" : "translateY(28px)",
     transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`,
   });
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.message) {
+      setStatus("error");
+      return;
+    }
+    try {
+      await addDoc(collection(db, "messages"), {
+        ...form,
+        sentAt: new Date(),
+      });
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+    } catch (e) {
+      setStatus("error");
+    }
+  };
+
+  const inputStyle = {
+    width: "100%",
+    padding: "12px 16px",
+    background: "#242424",
+    border: "1px solid #2e2e2e",
+    borderRadius: "10px",
+    color: "#f0ede8",
+    fontSize: "14px",
+    fontFamily: "DM Sans, sans-serif",
+    outline: "none",
+    marginBottom: "12px",
+  };
 
   return (
     <main style={{ maxWidth: "700px", margin: "0 auto", padding: "60px 40px" }}>
@@ -90,12 +124,12 @@ export default function About() {
             marginBottom: "40px",
           }}
         >
-          Hey! I'm Robinson, a IT student from the Philippines.
-          I'm still early in my journey — this portfolio is actually one of the
-          first real things I've built. I'm currently learning the fundamentals
-          of web development and getting comfortable with React. It's
-          challenging sometimes, but I genuinely enjoy the process of figuring
-          things out and seeing something come to life on the screen.
+          Hey! I'm Robinson, a CS student from the Philippines. I'm still early
+          in my journey — this portfolio is actually one of the first real
+          things I've built. I'm currently learning the fundamentals of web
+          development and getting comfortable with React. It's challenging
+          sometimes, but I genuinely enjoy the process of figuring things out
+          and seeing something come to life on the screen.
         </p>
       </div>
 
@@ -143,8 +177,8 @@ export default function About() {
         </div>
       </div>
 
-      {/* Contact */}
-      <div style={fadeUp(0.45)}>
+      {/* Contact Info */}
+      <div style={fadeUp(0.4)}>
         <div
           style={{
             marginBottom: "8px",
@@ -160,7 +194,14 @@ export default function About() {
         <div
           style={{ height: "1px", background: "#2e2e2e", marginBottom: "20px" }}
         ></div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            marginBottom: "40px",
+          }}
+        >
           {[
             ["📧", "jrobinson4972@gmail.com", "mailto:jrobinson4972@gmail.com"],
             [
@@ -199,6 +240,88 @@ export default function About() {
             </a>
           ))}
         </div>
+      </div>
+
+      {/* Contact Form */}
+      <div style={fadeUp(0.5)}>
+        <div
+          style={{
+            marginBottom: "8px",
+            fontSize: "11px",
+            textTransform: "uppercase",
+            letterSpacing: "2px",
+            color: "#a0998f",
+            fontWeight: 600,
+          }}
+        >
+          Send a Message
+        </div>
+        <div
+          style={{ height: "1px", background: "#2e2e2e", marginBottom: "20px" }}
+        ></div>
+
+        <input
+          placeholder="Your name"
+          value={form.name}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+          style={inputStyle}
+        />
+        <input
+          placeholder="Your email"
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          style={inputStyle}
+        />
+        <textarea
+          placeholder="Your message"
+          value={form.message}
+          onChange={(e) => setForm({ ...form, message: e.target.value })}
+          rows={4}
+          style={{ ...inputStyle, resize: "vertical" }}
+        />
+
+        <button
+          onClick={handleSubmit}
+          style={{
+            padding: "13px 28px",
+            background: "#f0ede8",
+            color: "#1a1a1a",
+            borderRadius: "10px",
+            fontSize: "14px",
+            fontWeight: 600,
+            fontFamily: "DM Sans, sans-serif",
+            border: "none",
+            cursor: "pointer",
+            width: "100%",
+          }}
+        >
+          Send Message
+        </button>
+
+        {status === "success" && (
+          <p
+            style={{
+              color: "#6ee7b7",
+              marginTop: "12px",
+              fontSize: "14px",
+              textAlign: "center",
+            }}
+          >
+            ✅ Message sent! I'll get back to you soon.
+          </p>
+        )}
+        {status === "error" && (
+          <p
+            style={{
+              color: "#f87171",
+              marginTop: "12px",
+              fontSize: "14px",
+              textAlign: "center",
+            }}
+          >
+            ❌ Please fill in all fields and try again.
+          </p>
+        )}
       </div>
     </main>
   );
