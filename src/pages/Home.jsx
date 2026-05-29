@@ -232,7 +232,7 @@ export default function Home() {
               }}
             ></div>
             <img
-              src="/me.jpg"
+              src="./me.jpg"
               alt="Robinson"
               style={{
                 width: "260px",

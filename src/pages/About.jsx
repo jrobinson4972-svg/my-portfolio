@@ -39,7 +39,7 @@ export default function About() {
             }}
           ></div>
           <img
-            src="/me.jpg"
+            src="./me.jpg"
             alt="Robinson"
             style={{
               width: "100px",
