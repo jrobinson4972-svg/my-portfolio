@@ -8,6 +8,7 @@ export default function App() {
     <HashRouter>
       <Navbar />
       <Routes>
+        <Route index element={<Home />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
       </Routes>
