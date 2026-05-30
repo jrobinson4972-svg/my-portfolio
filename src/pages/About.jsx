@@ -8,6 +8,13 @@ const hotSkills = ["React", "JavaScript", "Vite"];
 
 export default function About() {
   const [visible, setVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
 
@@ -53,7 +60,13 @@ export default function About() {
   };
 
   return (
-    <main style={{ maxWidth: "700px", margin: "0 auto", padding: "60px 40px" }}>
+    <main
+      style={{
+        maxWidth: "700px",
+        margin: "0 auto",
+        padding: isMobile ? "40px 24px" : "60px 40px",
+      }}
+    >
       {/* Profile */}
       <div
         style={{

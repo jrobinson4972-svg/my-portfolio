@@ -9,6 +9,13 @@ export default function Home() {
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 100);
@@ -43,8 +50,6 @@ export default function Home() {
     transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`,
   });
 
-  const isMobile = window.innerWidth < 768;
-
   return (
     <main
       style={{
@@ -58,17 +63,15 @@ export default function Home() {
       <div
         style={{
           display: "flex",
-          flexDirection: isMobile ? "column" : "row",
-          alignItems: "center",
-          justifyContent: "center",
+          flexDirection: isMobile ? "column-reverse" : "row",
           gap: isMobile ? "32px" : "60px",
+          alignItems: "center",
           width: "100%",
           maxWidth: "1100px",
-          textAlign: isMobile ? "center" : "left",
         }}
       >
-        {/* Left — text content */}
-        <div style={{ flex: 1 }}>
+        {/* Left */}
+        <div style={{ flex: 1, textAlign: isMobile ? "center" : "left" }}>
           <div
             style={{
               ...fadeUp(0.1),
@@ -82,7 +85,7 @@ export default function Home() {
               fontSize: "12px",
               color: "#a0998f",
               fontWeight: 500,
-              marginBottom: "20px",
+              marginBottom: "24px",
             }}
           >
             <span
@@ -105,8 +108,8 @@ export default function Home() {
                 fontWeight: 800,
                 lineHeight: 1.05,
                 color: "#f0ede8",
-                letterSpacing: "-1px",
-                marginBottom: "16px",
+                letterSpacing: "-2px",
+                marginBottom: "20px",
               }}
             >
               Hi, I'm
@@ -130,7 +133,7 @@ export default function Home() {
                 fontSize: "15px",
                 lineHeight: 1.7,
                 maxWidth: "460px",
-                margin: isMobile ? "0 auto 28px" : "0 0 28px",
+                margin: isMobile ? "0 auto 32px" : "0 0 32px",
                 fontWeight: 300,
               }}
             >
@@ -144,7 +147,7 @@ export default function Home() {
               ...fadeUp(0.5),
               display: "flex",
               gap: "12px",
-              marginBottom: "32px",
+              marginBottom: "40px",
               justifyContent: isMobile ? "center" : "flex-start",
               flexWrap: "wrap",
             }}
@@ -208,8 +211,15 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Right — photo (only once!) */}
-        <div style={{ ...fadeUp(0.3), flexShrink: 0 }}>
+        {/* Photo */}
+        <div
+          style={{
+            ...fadeUp(0.3),
+            display: "flex",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
           <div style={{ position: "relative" }}>
             <div
               style={{
@@ -238,12 +248,7 @@ export default function Home() {
         </div>
       </div>
 
-      <style>{`
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-      `}</style>
+      <style>{`@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>
     </main>
   );
 }
