@@ -44,56 +44,71 @@ export default function Home() {
   });
 
   return (
-    <main
-      style={{
-        minHeight: "92vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "40px 24px",
-      }}
-    >
-      <div style={{ width: "100%", maxWidth: "1100px" }}>
-        {/* Mobile: stack vertically, Desktop: side by side */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "40px",
-          }}
-        >
-          {/* Photo — shows on top for mobile */}
-          <div style={{ ...fadeUp(0.2) }}>
-            <div style={{ position: "relative" }}>
-              <div
-                style={{
-                  position: "absolute",
-                  inset: "-4px",
-                  borderRadius: "24px",
-                  background: "linear-gradient(135deg, #3a3530, #6b6560)",
-                  zIndex: 0,
-                }}
-              ></div>
-              <img
-                src={profilePic}
-                alt="Robinson"
-                style={{
-                  width: "160px",
-                  height: "180px",
-                  borderRadius: "20px",
-                  objectFit: "cover",
-                  objectPosition: "top",
-                  display: "block",
-                  position: "relative",
-                  zIndex: 1,
-                }}
-              />
-            </div>
-          </div>
+    <>
+      <style>{`
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        .hero-wrapper {
+          min-height: 92vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 40px 24px;
+        }
+        .hero-inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 32px;
+          width: 100%;
+          max-width: 1100px;
+        }
+        .hero-photo {
+          width: 150px;
+          height: 170px;
+          border-radius: 20px;
+          object-fit: cover;
+          object-position: top;
+          display: block;
+          position: relative;
+          z-index: 1;
+        }
+        @media (min-width: 768px) {
+          .hero-inner {
+            flex-direction: row !important;
+            text-align: left !important;
+            justify-content: space-between;
+          }
+          .hero-text {
+            align-items: flex-start !important;
+          }
+          .hero-pills {
+            justify-content: flex-start !important;
+          }
+          .hero-buttons {
+            justify-content: flex-start !important;
+          }
+          .hero-photo {
+            width: 260px !important;
+            height: 300px !important;
+          }
+        }
+      `}</style>
 
-          {/* Text content */}
-          <div style={{ textAlign: "center", width: "100%" }}>
+      <main className="hero-wrapper">
+        <div className="hero-inner">
+          {/* Text */}
+          <div
+            className="hero-text"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <div
               style={{
                 ...fadeUp(0.1),
@@ -155,7 +170,7 @@ export default function Home() {
                   fontSize: "clamp(14px, 3vw, 16px)",
                   lineHeight: 1.7,
                   maxWidth: "460px",
-                  margin: "0 auto 28px",
+                  marginBottom: "28px",
                   fontWeight: 300,
                 }}
               >
@@ -165,13 +180,14 @@ export default function Home() {
             </div>
 
             <div
+              className="hero-buttons"
               style={{
                 ...fadeUp(0.5),
                 display: "flex",
                 gap: "12px",
                 marginBottom: "32px",
-                justifyContent: "center",
                 flexWrap: "wrap",
+                justifyContent: "center",
               }}
             >
               <a
@@ -206,6 +222,7 @@ export default function Home() {
             </div>
 
             <div
+              className="hero-pills"
               style={{
                 ...fadeUp(0.65),
                 display: "flex",
@@ -232,18 +249,24 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </div>
-      </div>
 
-      <style>{`
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-        @media (min-width: 768px) {
-          .hero-grid { flex-direction: row !important; text-align: left !important; }
-        }
-      `}</style>
-    </main>
+          {/* Photo — only once */}
+          <div style={fadeUp(0.3)}>
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <div
+                style={{
+                  position: "absolute",
+                  inset: "-4px",
+                  borderRadius: "24px",
+                  background: "linear-gradient(135deg, #3a3530, #6b6560)",
+                  zIndex: 0,
+                }}
+              ></div>
+              <img src={profilePic} alt="Robinson" className="hero-photo" />
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
   );
 }
