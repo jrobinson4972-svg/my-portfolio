@@ -137,7 +137,7 @@ export default function Home() {
                 fontWeight: 300,
               }}
             >
-              CS student from the Philippines, just starting my journey in web
+              IT student from the Philippines, just starting my journey in web
               development. Still learning, but enjoying every step of it.
             </p>
           </div>

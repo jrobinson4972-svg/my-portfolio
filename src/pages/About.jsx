@@ -137,7 +137,7 @@ export default function About() {
             marginBottom: "40px",
           }}
         >
-          Hey! I'm Robinson, a CS student from the Philippines. I'm still early
+          Hey! I'm Robinson, a IT student from the Philippines. I'm still early
           in my journey — this portfolio is actually one of the first real
           things I've built. I'm currently learning the fundamentals of web
           development and getting comfortable with React. It's challenging
