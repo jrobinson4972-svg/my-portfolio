@@ -4,7 +4,7 @@ import { db } from "../firebase";
 import profilePic from "../assets/me.jpg";
 
 const skills = ["React", "JavaScript", "HTML", "CSS", "Git", "GitHub"];
-const hotSkills = ["React", "JavaScript", "Vite"];
+const hotSkills = ["React", "JavaScript", "HTML", "CSS"];
 
 export default function About() {
   const [visible, setVisible] = useState(false);
