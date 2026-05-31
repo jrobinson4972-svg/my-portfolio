@@ -3,7 +3,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import profilePic from "../assets/me.jpg";
 
-const skills = ["React", "JavaScript", "Vite", "HTML", "CSS", "Git", "GitHub"];
+const skills = ["React", "JavaScript", "HTML", "CSS", "Git", "GitHub"];
 const hotSkills = ["React", "JavaScript", "Vite"];
 
 export default function About() {
